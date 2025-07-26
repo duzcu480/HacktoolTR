@@ -443,6 +443,14 @@ def bluetooth_saldir():
                 break
         time.sleep(3)
         
+def phisher():
+
+    """
+    phisher.py scriptini çalıştırır
+    """
+    script_to_run = "phisher.py"
+    subprocess.call([sys.executable, script_to_run])     
+        
 def wbomb():
 
     """
@@ -491,8 +499,9 @@ def ana_menu():
         print(Fore.CYAN + "║ " + Fore.YELLOW + "3) 🔍 OSINT Google Arama" + Fore.CYAN + "         ║     " + Fore.LIGHTRED_EX + "**Parrot" + Fore.BLUE + " OS:**")
         print(Fore.CYAN + "║ " + Fore.YELLOW + "4) 📶 WiFi Bağlanma(Mode Managed)" + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * Cihaza Deauth Saldırısı: Tamamen çalışır.")
         print(Fore.CYAN + "║ " + Fore.YELLOW + "5) 🕵️ Bluetooth Sızma" + Fore.CYAN + "             ║     " + Fore.LIGHTGREEN_EX + " * Modeme/IP Flood Saldırısı: Tamamen çalışır.")
-        print(Fore.CYAN + "║ " + Fore.YELLOW + "6) 💣Bombalar                    " + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * OSINT Google Arama: Tamamen çalışır.") # Yeni satır
-        print(Fore.CYAN + "║ " + Fore.LIGHTRED_EX + "7) ↩️ Çıkış                       " + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * WiFi Bağlanma (Mode Managed): Tamamen çalışır.")
+        print(Fore.CYAN + "║ " + Fore.YELLOW + "6) 💣 Bombalar                   " + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * OSINT Google Arama: Tamamen çalışır.") # Yeni satır
+        print(Fore.CYAN + "║ " + Fore.YELLOW + "7) 📚 Phishing Saldırısı         " + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * WiFi Bağlanma (Mode Managed): Tamamen çalışır.")
+        print(Fore.CYAN + "║ " + Fore.LIGHTRED_EX + "8) 📚 Çıkış                      " + Fore.CYAN + "║")
         print(Fore.CYAN + "╚══════════════════════════════════╝      ---")
         print("                                         " + Fore.LIGHTYELLOW_EX + "**Ubuntu" + Fore.CYAN + " (Mint, Debian dahil):**")
         print("                                         " + Fore.MAGENTA + " * Cihaza Deauth Saldırısı: Kurulum sonrası çalışır.")
@@ -524,7 +533,7 @@ def ana_menu():
         print("                                         ")
         print("                                         " + Fore.RED + "**Önemli Not:** " + Fore.YELLOW + "Deauth ve Flood saldırıları için Root yetkisi lazımdır, lütfen " + Fore.GREEN + " 'sudo hack_menusu.py' " + Fore.YELLOW + " olarak başlatın**")
 
-        secim = input_int(Fore.MAGENTA + "Seçimin: ", 1, 7)
+        secim = input_int(Fore.MAGENTA + "Seçimin: ", 1, 8)
         if secim == 1:
             deauth_menu()
         elif secim == 2:
@@ -538,6 +547,8 @@ def ana_menu():
         elif secim == 6:
             bmbmenu()
         elif secim == 7:
+            phisher()
+        elif secim == 8:
             print(Fore.WHITE + "Çıkış yapılıyor...")
             break
 
