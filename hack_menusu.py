@@ -469,6 +469,8 @@ def bsms():
 
 def bmbmenu():
     clear()
+    print("Whatsapp Bomber Çalışmazsa 'Python3 hack_menusu.py' sudo çalışmasını engellemektedir")
+    time.sleep(5)
     print(f"{Fore.CYAN}╔═════════════════════════════════════════════╗")
     print(f"{Fore.CYAN}║{Fore.YELLOW}          💣 BOMBA SALDIRISI MENÜSÜ 💣       {Fore.CYAN}║")
     print(f"{Fore.CYAN}╠═════════════════════════════════════════════╣")
