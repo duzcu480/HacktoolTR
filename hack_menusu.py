@@ -490,7 +490,7 @@ def bmbmenu():
 def ana_menu():
     while True:
         clear()
-    print("Fore.YELLOW" + Scripti kullandığın için teşekkür ederim
+    print(Fore.YELLOW + "Scripti kullandığın için teşekkür ederim
   Lütfen GitHub üzerinden yıldız verin") 
         print(Fore.CYAN + """╔══════════════════════════════════╗      Sistem Uyumluluğu:
 ║       """ + Fore.YELLOW + "Duzcu HackTool" + Fore.CYAN + """             ║      ---""")
