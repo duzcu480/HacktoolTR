@@ -490,8 +490,8 @@ def bmbmenu():
 def ana_menu():
     while True:
         clear()
-    print(Fore.YELLOW + "Scripti kullandığın için teşekkür ederim
-  Lütfen GitHub üzerinden yıldız verin.") 
+     print(Fore.YELLOW + "Scripti kullandığın için teşekkür ederim")
+print(Fore.LIGHTGREEN_EX + "Lütfen GitHub üzerinden yıldız verin.")
         time.sleep(5)
         clear()
         print(Fore.CYAN + """╔══════════════════════════════════╗      Sistem Uyumluluğu:
