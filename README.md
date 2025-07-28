@@ -65,6 +65,13 @@ Follow these steps to set up and run the project correctly.
 First, clone the project from GitHub to your local machine and navigate into the project directory:
 
 ```bash
-git clone [https://github.com/YOUR_GITHUB_USERNAME/DuzcuHackTool.git](https://github.com/YOUR_GITHUB_USERNAME/DuzcuHackTool.git)
-cd DuzcuHackTool
+git clone https://github.com/duzcu480/HacktoolTR
+
+cd HacktoolTR
+
+pip3 install -r requirements.txt
+
 python3 hack_menusu.py
+
+(For attacks)
+Sudo python3 hack_menusu.py
