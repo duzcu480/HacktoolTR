@@ -490,6 +490,8 @@ def bmbmenu():
 def ana_menu():
     while True:
         clear()
+    print("Fore.YELLOW" + Scripti kullandığın için teşekkür ederim
+  Lütfen GitHub üzerinden yıldız verin") 
         print(Fore.CYAN + """╔══════════════════════════════════╗      Sistem Uyumluluğu:
 ║       """ + Fore.YELLOW + "Duzcu HackTool" + Fore.CYAN + """             ║      ---""")
         print(Fore.CYAN + "║       Discord:" + Fore.LIGHTMAGENTA_EX + " .El.Pipi." + Fore.CYAN + "         ║     " + Fore.YELLOW + "**Kali Linux:**")
