@@ -492,7 +492,8 @@ def ana_menu():
         clear()
         print(Fore.YELLOW + "Scripti kullandığın için teşekkür ederim")
         print(Fore.LIGHTGREEN_EX + "Lütfen GitHub üzerinden  yıldız vererek destek ol!")
-        time.sleep(5)
+        print(Fore.LIGHTGREEN_EX + "Menü Yükleniyor...") 
+        time.sleep(8)
         clear()
         print(Fore.CYAN + """╔══════════════════════════════════╗      Sistem Uyumluluğu:
 ║       """ + Fore.YELLOW + "Duzcu HackTool" + Fore.CYAN + """             ║      ---""")
