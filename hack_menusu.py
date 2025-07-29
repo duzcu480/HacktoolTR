@@ -508,7 +508,7 @@ def ana_menu():
         print(Fore.CYAN + "║ " + Fore.YELLOW + "5) 🕵️ Bluetooth Sızma" + Fore.CYAN + "             ║     " + Fore.LIGHTGREEN_EX + " * Modeme/IP Flood Saldırısı: Tamamen çalışır.")
         print(Fore.CYAN + "║ " + Fore.YELLOW + "6) 💣 Bombalar                   " + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * OSINT Google Arama: Tamamen çalışır.") # Yeni satır
         print(Fore.CYAN + "║ " + Fore.YELLOW + "7) 📚 Phishing Saldırısı         " + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * WiFi Bağlanma (Mode Managed): Tamamen çalışır.")
-        print(Fore.CYAN + "║ " + Fore.LIGHTRED_EX + "8) ↩️ Çıkış                      " + Fore.CYAN + "║")
+        print(Fore.CYAN + "║ " + Fore.LIGHTRED_EX + "8) ↩️ Çıkış                       " + Fore.CYAN + "║")
         print(Fore.CYAN + "╚══════════════════════════════════╝      ---")
         print("                                         " + Fore.LIGHTYELLOW_EX + "**Ubuntu" + Fore.CYAN + " (Mint, Debian dahil):**")
         print("                                         " + Fore.MAGENTA + " * Cihaza Deauth Saldırısı: Kurulum sonrası çalışır.")
