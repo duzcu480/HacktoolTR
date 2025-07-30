@@ -567,8 +567,8 @@ def bmbmenu():
 def ana_menu():
     while True:
         clear()
-        print(Fore.YELLOW + "Scripti kullandığın için teşekkür ederim")
-        print(Fore.LIGHTGREEN_EX + "Lütfen GitHub üzerinden  yıldız vererek destek ol!")
+        sprint(Fore.YELLOW + "Scripti kullandığın için teşekkür ederim")
+        sprint(Fore.LIGHTGREEN_EX + "Lütfen GitHub üzerinden  yıldız vererek destek ol!")
         sprint(Fore.LIGHTGREEN_EX + "Menü Yükleniyor...") 
         time.sleep(1)
         clear()
