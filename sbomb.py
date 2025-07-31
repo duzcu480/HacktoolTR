@@ -4,6 +4,30 @@ from os import system
 from sms import SendSms
 import threading
 
+def sprint(text, second=0.5):
+    
+    ansi_escape_pattern = re.compile(r'(\x1b\[[0-9;]*m)')
+    
+    
+    parts = ansi_escape_pattern.split(text)
+    
+    for part in parts:a
+        if part:
+            if re.match(ansi_escape_pattern, part):
+                
+                sys.stdout.write(part)
+                sys.stdout.flush()
+            else:
+                
+                for char in part:
+                    sys.stdout.write(char)
+                    sys.stdout.flush()
+                    time.sleep(second)
+    
+    
+    sys.stdout.write('\n')
+    sys.stdout.flush()
+
 servisler_sms = []
 for attribute in dir(SendSms):
     attribute_value = getattr(SendSms, attribute)
@@ -14,7 +38,7 @@ for attribute in dir(SendSms):
             
 while 1:
     system("cls||clear")
-    print("""{}
+    sprint("""{}
   ____                      _  _    ___   ___  
  |  _ \ _   _ _______ _   _| || |  ( _ ) / _ \ 
  | | | | | | |_  / __| | | | || |_ / _ \| | | |
