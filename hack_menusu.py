@@ -552,7 +552,7 @@ def bmbmenu():
     print(f"{Fore.CYAN}║{Fore.YELLOW}          💣 BOMBA SALDIRISI MENÜSÜ 💣       {Fore.CYAN}║" + Style.RESET_ALL)
     print(f"{Fore.CYAN}╠═════════════════════════════════════════════╣" + Style.RESET_ALL)
     print(f"{Fore.CYAN}║ {Fore.LIGHTBLUE_EX}1) ✉️ SMS Bomber                             {Fore.CYAN}║" + Style.RESET_ALL)
-    print(f"{Fore.CYAN}║ {Fore.LIGHTGREEN_EX}2) 💬 WhatsApp Bomber                       {Fore.CYAN}║" + Style.RESET_ALL)
+    print(f"{Fore.CYAN}║ {Fore.LIGHTGREEN_EX}2) 💬 WhatsApp Bomber (Linux, Firefox)      {Fore.CYAN}║" + Style.RESET_ALL)
     print(f"{Fore.CYAN}║ {Fore.LIGHTRED_EX}3) ↩️ Geri Dön                               {Fore.CYAN}║" + Style.RESET_ALL)
     print(f"{Fore.CYAN}╚═════════════════════════════════════════════╝" + Style.RESET_ALL)
 
