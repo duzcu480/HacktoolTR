@@ -421,7 +421,7 @@ def osint_menu():
 
     sprint(Fore.GREEN + "\n[*] ✅ Arama tamamlandı! Bulunan sayfalar:\n" + Style.RESET_ALL) 
     for i, link in enumerate(bulunanlar, 1):
-        sprint(Fore.WHITE + f"🔗 {i}- {link}" + Style.RESET_ALL)
+        print(Fore.WHITE + f"🔗 {i}- {link}" + Style.RESET_ALL)
 
     sprint(Fore.MAGENTA + "0- Tümünü aynı tarayıcıda sekme olarak aç" + Style.RESET_ALL) 
 
