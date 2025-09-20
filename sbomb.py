@@ -11,28 +11,29 @@ for attribute in dir(SendSms):
         if attribute.startswith('__') == False:
             servisler_sms.append(attribute)
 
-            
+
 while 1:
     system("cls||clear")
     print("""{}
-  ____                      _  _    ___   ___  
- |  _ \ _   _ _______ _   _| || |  ( _ ) / _ \ 
+  ____                      _  _    ___   ___
+ |  _ \ _   _ _______ _   _| || |  ( _ ) / _ \
  | | | | | | |_  / __| | | | || |_ / _ \| | | |
  | |_| | |_| |/ / (__| |_| |__   _| (_) | |_| |
- |____/ \__,_/___\___|\__,_|  |_|  \___/ \___/ 
- / ___| _ __ ___  ___                          
- \___ \| '_ ` _ \/ __|                         
-  ___) | | | | | \__ \                         
- |____/|_| |_| |_|___/                               
-       
-    
-    Sms: 238          By @duzcu480\n  
+ |____/ \__,_/___\___|\__,_|  |_|  \___/ \___/
+ / ___| _ __ ___  ___
+ \___ \| '_ ` _ \/ __|
+  ___) | | | | | \__ \
+ |____/|_| |_| |_|___/                          
+
+
+    Sms: 238          By @duzcu480\n
+                                                 İnstagram: Duzcu480
     """.format(Fore.LIGHTCYAN_EX, len(servisler_sms), Style.RESET_ALL, Fore.LIGHTRED_EX))
     try:
         menu = (input(Fore.LIGHTMAGENTA_EX + " 1- SMS Gönder (Normal)\n\n 2- SMS Gönder (Turbo)\n\n 3- Çıkış\n\n" + Fore.LIGHTYELLOW_EX + " Seçim: "))
         if menu == "":
             continue
-        menu = int(menu) 
+        menu = int(menu)
     except ValueError:
         system("cls||clear")
         print(Fore.LIGHTRED_EX + "Hatalı giriş yaptın. Tekrar deneyiniz.")
@@ -64,10 +65,10 @@ while 1:
                 if len(tel_no) != 10:
                     raise ValueError
                 tel_liste.append(tel_no)
-                sonsuz = "(Sonsuz ise 'enter' tuşuna basınız)"  
+                sonsuz = "(Sonsuz ise 'enter' tuşuna basınız)"
             except ValueError:
                 system("cls||clear")
-                print(Fore.LIGHTRED_EX + "Hatalı telefon numarası. Tekrar deneyiniz.") 
+                print(Fore.LIGHTRED_EX + "Hatalı telefon numarası. Tekrar deneyiniz.")
                 sleep(3)
                 continue
         system("cls||clear")
@@ -78,7 +79,7 @@ while 1:
                 raise
         except:
             system("cls||clear")
-            print(Fore.LIGHTRED_EX + "Hatalı mail adresi. Tekrar deneyiniz.") 
+            print(Fore.LIGHTRED_EX + "Hatalı mail adresi. Tekrar deneyiniz.")
             sleep(3)
             continue
         system("cls||clear")
@@ -91,7 +92,7 @@ while 1:
                 kere = None
         except ValueError:
             system("cls||clear")
-            print(Fore.LIGHTRED_EX + "Hatalı giriş yaptın. Tekrar deneyiniz.") 
+            print(Fore.LIGHTRED_EX + "Hatalı giriş yaptın. Tekrar deneyiniz.")
             sleep(3)
             continue
         system("cls||clear")
@@ -100,11 +101,11 @@ while 1:
             aralik = int(input())
         except ValueError:
             system("cls||clear")
-            print(Fore.LIGHTRED_EX + "Hatalı giriş yaptın. Tekrar deneyiniz.") 
+            print(Fore.LIGHTRED_EX + "Hatalı giriş yaptın. Tekrar deneyiniz.")
             sleep(3)
             continue
         system("cls||clear")
-        if kere is None: 
+        if kere is None:
             sms = SendSms(tel_no, mail)
             while True:
                 for attribute in dir(SendSms):
@@ -141,7 +142,7 @@ while 1:
                 raise ValueError
         except ValueError:
             system("cls||clear")
-            print(Fore.LIGHTRED_EX + "Hatalı telefon numarası. Tekrar deneyiniz.") 
+            print(Fore.LIGHTRED_EX + "Hatalı telefon numarası. Tekrar deneyiniz.")
             sleep(3)
             continue
         system("cls||clear")
@@ -152,7 +153,7 @@ while 1:
                 raise
         except:
             system("cls||clear")
-            print(Fore.LIGHTRED_EX + "Hatalı mail adresi. Tekrar deneyiniz.") 
+            print(Fore.LIGHTRED_EX + "Hatalı mail adresi. Tekrar deneyiniz.")
             sleep(3)
             continue
         system("cls||clear")
