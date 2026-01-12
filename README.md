@@ -38,7 +38,8 @@ Bombing Attack Menu<img width="1366" height="768" alt="Screenshot_5" src="https:
 
 *This image shows the "Bombing Attack" sub-menu, where users can choose between SMS Bomber and WhatsApp Bomber functionalities.*
 ### Sms Bombing Menu
-Sms_Bomber<img width="1366" height="768" alt="Screenshot_2025-07-26_15_15_33" src="https://github.com/user-attachments/assets/88392101-f422-4c09-b694-0ab9a81dc030" />
+Sms_Bomber<img width="1366" height="768" alt="Screenshot_2026-01-12_18_17_26" src="https://github.com/user-attachments/assets/ab4e1be7-c680-43c6-b0c0-b8c66cba739b" />
+
 
 
 ---
