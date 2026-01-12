@@ -107,6 +107,7 @@ def wifi_kartlari_ve_monitor_modu_bul():
         return [], None
 
 def check_dependencies():
+    clear()
     requirements_file = "requirements.txt" 
     if not os.path.exists(requirements_file):
         print(Fore.RED + f"Hata: '{requirements_file}' dosyası bulunamadı." + Style.RESET_ALL)
