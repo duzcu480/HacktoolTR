@@ -24,17 +24,17 @@ class SendSms():
         else:
             self.mail = ''.join(choice(ascii_lowercase) for i in range(22))+"@gmail.com"
 
-    # Servis durum kontrolü için yardımcı fonksiyon
+    
     def check_service_status(self, service_name):
         """Servisin çalışıp çalışmadığını kontrol eder"""
         try:
-            # Servis fonksiyonunu al
+            
             service_func = getattr(self, service_name)
             
-            # Test isteği için geçici bir telefon numarası
+            
             test_phone = "5554443322"
             
-            # Servise özel test isteği
+            
             if service_name == "KahveDunyasi":
                 url = "https://api.kahvedunyasi.com:443/api/v1/auth/account/register/phone-number"
                 headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0", "Accept": "application/json, text/plain, */*", "Accept-Encoding": "gzip, deflate, br", "Content-Type": "application/json", "X-Language-Id": "tr-TR", "X-Client-Platform": "web", "Origin": "https://www.kahvedunyasi.com", "Dnt": "1", "Sec-Gpc": "1", "Referer": "https://www.kahvedunyasi.com/", "Sec-Fetch-Dest": "empty", "Sec-Fetch-Mode": "cors", "Sec-Fetch-Site": "same-site", "Priority": "u=0", "Te": "trailers", "Connection": "keep-alive"}
@@ -47,10 +47,8 @@ class SendSms():
                 r = requests.post(url, timeout=3)
                 return r.status_code < 500
                 
-            # Diğer servisler için benzer kontroller eklenebilir
-            # Basit bir bağlantı testi
+            
             else:
-                # Servis fonksiyonunu çağır ama hata yakalama ile
                 try:
                     service_func()
                     return True
