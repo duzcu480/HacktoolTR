@@ -630,7 +630,7 @@ def ana_menu():
         print(Fore.CYAN + "║ " + Fore.YELLOW + "2) 🌐 Modem / IP Flood ." + Fore.CYAN + "         ║      ---")
         print(Fore.CYAN + "║ " + Fore.YELLOW + "3) 🔍 OSINT Google Arama" + Fore.CYAN + "         ║     " + Fore.LIGHTRED_EX + "**Parrot" + Fore.BLUE + " OS:**")
         print(Fore.CYAN + "║ " + Fore.YELLOW + "4) 📶 WiFi Bağlanma(Mode Managed)" + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * Cihaza Deauth Saldırısı: Tamamen çalışır.")
-        print(Fore.CYAN + "║ " + Fore.YELLOW + "5) 🕵️ Bluetooth Sızma" + Fore.CYAN + "             ║     " + Fore.LIGHTGREEN_EX + " * Modeme/IP Flood Saldırısı: Tamamen çalışır.")
+        print(Fore.CYAN + "║ " + Fore.YELLOW + "5) 🕵️  Bluetooth Sızma" + Fore.CYAN + "            ║     " + Fore.LIGHTGREEN_EX + " * Modeme/IP Flood Saldırısı: Tamamen çalışır.")
         print(Fore.CYAN + "║ " + Fore.YELLOW + "6) 💣 Bombalar                   " + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * OSINT Google Arama: Tamamen çalışır.")
         print(Fore.CYAN + "║ " + Fore.YELLOW + "7) 📚 Phishing Saldırısı         " + Fore.CYAN + "║     " + Fore.LIGHTGREEN_EX + " * WiFi Bağlanma (Mode Managed): Tamamen çalışır.")
         print(Fore.CYAN + "║ " + Fore.LIGHTRED_EX + "8) ↩️ Çıkış                       " + Fore.CYAN + "║")
