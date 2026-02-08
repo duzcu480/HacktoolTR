@@ -14,7 +14,6 @@ for attribute in dir(SendSms):
 
 
 def check_service_connection(service_name):
-    """Servis bağlantısını kontrol et (SMS göndermeden)"""
     try:
         
         if service_name == "KahveDunyasi":
@@ -337,7 +336,6 @@ art = """
 """
 
 def check_all_services():
-    """Tüm servislerin durumunu kontrol eder"""
     system("cls||clear")
     print(f"{Fore.LIGHTCYAN_EX}Servis Durumları Kontrol Ediliyor...{Style.RESET_ALL}\n")
     
