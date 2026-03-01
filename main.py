@@ -575,21 +575,23 @@ def phisher():
     """
     phisher.py scriptini çalıştırır
     """
-    script_to_run = "phisher.py"
-    subprocess.call([sys.executable, script_to_run])     
+    base = os.path.dirname(os.path.abspath(__file__))
+    script_to_run = os.path.join(base, "Scripts", "phisher.py")
+    subprocess.call([sys.executable, script_to_run])
         
 def wbomb():
     """
     wbomb.py scriptini çalıştırır
     """
-    script_to_run = "wbomb.py"
+    base = os.path.dirname(os.path.abspath(__file__))
+    script_to_run = os.path.join(base, "Scripts", "wbomb.py")
     subprocess.call([sys.executable, script_to_run])
         
 def bsms():
     """
     sbomb.py scriptini çalıştırır.
     """
-    script_to_run = "sbomb.py" 
+    script_to_run = "sbomb.py"
     subprocess.call([sys.executable, script_to_run])
 
 def bmbmenu():
