@@ -73,7 +73,7 @@ cd HacktoolTR
 
 pip3 install -r requirements.txt
 
-python3 hack_menusu.py
+python3 main.py
 
 (For attacks)
-Sudo python3 hack_menusu.py
+Sudo python3 main.py
