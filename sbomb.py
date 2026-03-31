@@ -1,4 +1,5 @@
 from colorama import Fore, Style
+import time
 from time import sleep
 from os import system
 from Scripts.sms import SendSms as SendSmsOld
@@ -342,6 +343,11 @@ art = r"""
  |____/|_| |_| |_|___/   
 """
 
+blink_messages = [
+    "!! Sadece Türkiye Numaralari !!",
+    "!! Turkish Phone Numbers Only !!"
+]
+
 def check_all_services():
     system("cls||clear")
     print(f"{Fore.LIGHTCYAN_EX}Servis Durumları Kontrol Ediliyor...{Style.RESET_ALL}\n")
@@ -367,9 +373,11 @@ def check_all_services():
 
 async def main():
     while True:
-        system("cls||clear")                     
+        system("cls||clear")
+        
         print(f"""
 {Fore.BLUE +  Style.BRIGHT + Style.DIM + art + Style.RESET_ALL}
+{Fore.RED + Style.BRIGHT} !! Sadece Türkiye Numaralari !! {Style.RESET_ALL}
 {Fore.CYAN}╔══════════════════════════════════╗
 {Fore.CYAN}║    {Fore.YELLOW}🚀 SMS BOMBER v3.0 {Fore.CYAN}           ║
 {Fore.CYAN}╠══════════════════════════════════╣
@@ -382,18 +390,46 @@ async def main():
 {Fore.CYAN}╚══════════════════════════════════╝
 {Fore.LIGHTBLUE_EX + Style.BRIGHT} Sms : 238
 {Fore.LIGHTRED_EX + Style.BRIGHT} İnstagram/Github : Duzcu480
-{Style.RESET_ALL}""")
-        print(Fore.LIGHTYELLOW_EX + "Seçiminiz: "+ Fore.LIGHTGREEN_EX, end="")
+{Style.RESET_ALL}""", end="")
+        
+        print("\n" + Fore.LIGHTYELLOW_EX + "Seçiminiz: "+ Fore.LIGHTGREEN_EX, end="")
+        sys.stdout.flush()
+
+        async def blink_banner():
+            texts = [
+                f"{Fore.RED}{Style.BRIGHT} !! Turkish Phone Numbers Only !! {Style.RESET_ALL}",
+                f"{Fore.RED}{Style.BRIGHT} !! Sadece Türkiye Numaralari !! {Style.RESET_ALL}"
+            ]
+            lang_idx = 0
+            while True:
+                for _ in range(3):
+                    sys.stdout.write(f"\033[s\033[14A\r\033[K{texts[lang_idx]}\033[u")
+                    sys.stdout.flush()
+                    await asyncio.sleep(0.8)
+                    
+                    sys.stdout.write(f"\033[s\033[14A\r\033[K\033[u")
+                    sys.stdout.flush()
+                    await asyncio.sleep(0.8)
+                
+                lang_idx = (lang_idx + 1) % 2
+        blink_task = asyncio.create_task(blink_banner())
+
         try:
             menu_input = await asyncio.to_thread(input)
-            if menu_input == "":
-                continue
+        finally:
+            blink_task.cancel()
+
+        if menu_input == "":
+            continue
+            
+        try:
             menu = int(menu_input)
         except ValueError:
             system("cls||clear")
             print(Fore.LIGHTRED_EX + "Hatalı giriş yaptın. Tekrar deneyiniz.")
             await asyncio.sleep(3)
             continue
+            
         if menu == 1:
             system("cls||clear")
             print(Fore.LIGHTYELLOW_EX + "Telefon numarasını başında '+90' olmadan yazınız (Birden çoksa 'enter' tuşuna basınız): "+ Fore.LIGHTGREEN_EX, end="")
