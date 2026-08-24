@@ -63,11 +63,15 @@ Sms_Bomber<img width="1366" height="768" alt="Screenshot_2026-03-31_20_42_12" sr
 
 Follow these steps to set up and run the project correctly.
 
-### 1. Clone the Repository
+### 1. Linux Debain/Ubuntu
 
 First, clone the project from GitHub to your local machine and navigate into the project directory:
 
 ```bash
+apt install git
+
+apt install python3
+
 git clone https://github.com/duzcu480/HacktoolTR
 
 cd HacktoolTR
@@ -76,5 +80,53 @@ pip3 install -r requirements.txt
 
 python3 main.py
 
-(For attacks)
-Sudo python3 main.py
+#(For attacks / Saldırılar İçin)
+
+sudo python3 main.py
+
+#(Just SmsBomber / Sadece SmsBomber)
+
+python3 sbomb.py
+```
+
+---
+
+### 2. Termux (Android)
+
+```bash
+pkg install git
+
+pkg install python3
+
+git clone https://github.com/duzcu480/HacktoolTR
+
+cd HacktoolTR
+
+pip3 install -r requirements.txt --break-system-packages
+
+sudo python3 main.py
+
+#(Just SmsBomber / Sadece SmsBomber)
+
+python3 sbomb.py
+```
+
+---
+
+### 3. Arch Linux
+
+```bash
+sudo pacman -S git
+
+sudo pacman -S python python-pip
+
+git clone https://github.com/duzcu480/HacktoolTR
+
+cd HacktoolTR
+
+pip3 install -r requirements.txt --break-system-packages
+
+sudo python3 main.py
+
+python3 sbomb.py
+```
