@@ -106,7 +106,7 @@ pip3 install -r requirements.txt
 
 pip3 install -r requirements.txt --break-system-packages
 
-sudo python3 main.py
+python3 main.py
 
 #(Just SmsBomber / Sadece SmsBomber)
 
