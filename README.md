@@ -100,6 +100,8 @@ pkg install git
 
 pkg install python3
 
+git clone https://github.com/duzcu480/HacktoolTR
+
 cd HacktoolTR
 
 pip3 install -r requirements.txt
