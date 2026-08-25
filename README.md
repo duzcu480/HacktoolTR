@@ -78,6 +78,8 @@ cd HacktoolTR
 
 pip3 install -r requirements.txt
 
+pip3 install -r requirements.txt --break-system-packages
+
 python3 main.py
 
 #(For attacks / Saldırılar İçin)
@@ -98,9 +100,9 @@ pkg install git
 
 pkg install python3
 
-git clone https://github.com/duzcu480/HacktoolTR
-
 cd HacktoolTR
+
+pip3 install -r requirements.txt
 
 pip3 install -r requirements.txt --break-system-packages
 
@@ -123,6 +125,8 @@ sudo pacman -S python python-pip
 git clone https://github.com/duzcu480/HacktoolTR
 
 cd HacktoolTR
+
+pip3 install -r requirements.txt
 
 pip3 install -r requirements.txt --break-system-packages
 
