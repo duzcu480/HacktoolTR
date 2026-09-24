@@ -1542,7 +1542,7 @@ class SendSms():
 
     async def Metro(self):
         url = "https://mobile.metro-tr.com:443/api/mobileAuth/validateSmsSend"
-        await self._post(url, "mobile.metro-tr.com", json={"methodType": "2", "mobilePhoneNumber": self.phone}
+        await self._post(url, "mobile.metro-tr.com", json={"methodType": "2", "mobilePhoneNumber": self.phone})
 
     #bodrum.bel.tr
     async def Bodrum(self):
